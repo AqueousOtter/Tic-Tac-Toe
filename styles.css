@@ -1,0 +1,15 @@
+html {
+    background-color: bisque;
+}
+article {
+    background-color: blueviolet;
+}
+#container {
+    display: flex;
+    background-color: aquamarine;
+}
+.cells {
+    height: 150px;
+    width: 150px;
+    font-size: 150px;
+}
