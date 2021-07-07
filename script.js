@@ -4,6 +4,10 @@
 //6.27 - working on module for gameboard. 
 //working out logic for listeners for player moves
 // trying to pass user.mark 
+//assigns user/computer 
+// 3 win conidtions . loop for row, loop for column, check diag
+//row 3 same, ex row 0, row 1, rtow 2
+//column row0[pi], row 1[i], etc
 
 
 const gameBoard = (() => {
@@ -33,17 +37,18 @@ const gameBoard = (() => {
 
     }
     function markPlayer(playGrid, player){
-        let playerMark = player;
-        playGrid.innerText = playerMark;
-        console.log("hello")
-
+        if(playGrid.innerText == "-"){
+            playGrid.innerText = player.mark;
+        }
+        else{
+            return
+        }
     }
 
     function gameGrid(player) {
         let playGrid = [];
         for (let i =0; i< cells.length; ++i){
             playGrid[i] = cells[i];
-            console.log(player)
             playGrid[i].addEventListener("click",()=> {
                 markPlayer(playGrid[i], player);
             });
@@ -58,24 +63,35 @@ const Player = function(name, mark){
     this.mark = mark;
 }
 const userChoice = (() => {
-    function getPlayer(){
-        let user;
+    let user = new Player();  
+    let computer = new Player("PC");  
+    function getPlayerMark(){
         const markX = document.getElementById("playerX");
         const markO = document.getElementById("playerO");
         markX.addEventListener("click", ()=>{
-            user = new Player("Player 1", "x");
-            return user.mark;
+            user.mark = "X";
+            computer.mark = "O";
         });
         markO.addEventListener("click", () => {
-            //let user = Player("Player 1", "O");
-    
+            user.mark = "O";
+            computer.mark = "X";
         });
+    }
+    function playerMove(){
+        getPlayerMark();
+        console.log(user)
         return user;
     }
-
-  return {getPlayer};
+    function computerMove(){
+        getPlayerMark();
+        return computer;
+    }
+  return {playerMove, computerMove};
 })();
-
-let a = userChoice.getPlayer()
+let b = userChoice.computerMove();
+let a = userChoice.playerMove();
 gameBoard.gameGrid(a);
 //assigns user/computer 
+// 3 win conidtions . loop for row, loop for column, check diag
+//row 3 same, ex row 0, row 1, rtow 2
+//column row0[pi], row 1[i], etc
